@@ -1,0 +1,365 @@
+---
+title: "Демо-скрипт"
+sidebarTitle: "Демо"
+description: "Один скрипт, который показывает все возможности Fire Library."
+icon: "wand-magic-sparkles"
+---
+
+Вставьте в executor. Охватывает окна, вкладки, все элементы, уведомления, плавающие метки, темы, конфиги, переводы и key system. Повторный запуск сначала выгружает предыдущую копию.
+
+```lua
+--// Fire Library showcase (v5.2.6)
+
+local USE_KEY_SYSTEM = false -- true to show the key prompt (key: "fire")
+
+--// Load
+local url = "https://raw.githubusercontent.com/Its-Kawi/Fire-Library/2f57dd6de90b6d92525f6c8c3e4024f8d94e0dc2/Files/Library.lua"
+
+local ok, Fire = pcall(function()
+    local src = game:HttpGet(url)
+    assert(type(src) == "string", "HttpGet did not return text")
+    local stop = src:find(";", src:find("local", 1, true), true)
+    assert(stop, "unexpected library source format")
+    local compile, err = loadstring(
+        "local parent = nil" .. src:sub(stop + 1)
+        .. "\nreturn require(obj:FindFirstChildOfClass(\"ModuleScript\"))"
+    )
+    assert(compile, "compile failed: " .. tostring(err))
+    return compile()
+end)
+
+if not ok then
+    return warn("[Showcase] load failed: " .. tostring(Fire))
+end
+
+--// Unload a previous run
+local env = getgenv and getgenv() or _G
+if env.FireShowcase then pcall(env.FireShowcase) end
+
+--// Window
+local closed = false
+local floating
+
+local window = Fire:Window({
+    Text = "Fire Library",
+    Footer = "Showcase",
+    Keybind = Enum.KeyCode.RightShift,
+    Language = "RU",
+    UserProfile = true,
+    Theme = {
+        Main = Color3.fromRGB(247, 43, 128),
+        Back = Color3.fromRGB(22, 22, 22),
+        Stroke = Color3.fromRGB(38, 38, 38),
+        Text = Color3.fromRGB(255, 255, 255),
+    },
+    NotificationSide = "Right",
+    MobileButtonVisible = true,
+    OnClose = function() closed = true end,
+})
+
+local function unload()
+    if closed then return end
+    closed = true
+    if floating then pcall(function() floating:Destroy() end) end
+    pcall(function() window:Close() end)
+    if env.FireShowcase == unload then env.FireShowcase = nil end
+end
+env.FireShowcase = unload
+
+local function notify(title, text)
+    window:Notification({ Title = title, Text = text, Duration = 4 })
+end
+
+--// Key system
+if USE_KEY_SYSTEM then
+    local accepted = window:KeySystem({
+        KeyUrl = "https://github.com/Its-Kawi/Fire-Library",
+        Callback = function(key) return key == "fire" end,
+    })
+    if not accepted then return end
+end
+
+--// Tab: Controls
+window:AddHeader({ Text = "Demo" })
+local controls = window:AddTab("Controls", { Text = "Controls", Icon = "Home" })
+local basic = controls:AddLeftGroupbox("Basic", { Text = "Basic" })
+local input = controls:AddRightGroupbox("Input", { Text = "Input" })
+
+local status = basic:AddLabel({ Text = "Status: <b>ready</b>" })
+local function setStatus(text)
+    if closed then return end -- Close() fires callbacks while resetting
+    status.Text = "Status: <b>" .. text .. "</b>"
+end
+
+basic:AddButton({
+    Text = "Button",
+    Icon = "Cursor",
+    Tooltip = "Click me",
+    Callback = function()
+        setStatus("button clicked")
+        notify("Button", "clicked")
+    end,
+})
+
+basic:AddButton({
+    Text = "Hold me",
+    Icon = "Repeat",
+    Holdable = true,
+    Callback = function(held)
+        setStatus(held and "holding" or "released")
+    end,
+})
+
+basic:AddButton({
+    Text = "Disabled button",
+    Disabled = true,
+    DisabledTooltip = "Can't click this",
+})
+
+local toggle = basic:AddToggle("DemoToggle", {
+    Text = "Toggle",
+    Value = false,
+    Callback = function(value) setStatus("toggle " .. (value and "on" or "off")) end,
+})
+
+toggle:AddColorPicker({
+    Value = Color3.fromRGB(247, 43, 128),
+    Tooltip = "Accent color",
+    Callback = function(color)
+        if closed then return end
+        window.Options.Theme.Main = color
+        window:Refresh()
+    end,
+})
+
+basic:AddCheckBox("DemoCheckbox", {
+    Text = "Checkbox",
+    Value = true,
+    Callback = function(value) setStatus("checkbox " .. tostring(value)) end,
+})
+
+basic:AddSeparator()
+
+basic:AddSlider("DemoSlider", {
+    Text = "Slider",
+    Min = 0, Max = 100, Step = 5, Value = 75,
+    Format = "/",
+    AllowSetValue = true,
+    Tooltip = "Right-click to type a value",
+    Callback = function(value) setStatus("slider " .. value) end,
+})
+
+basic:AddSlider("DemoPercent", {
+    Text = "Percent",
+    Min = 0, Max = 1, Step = 0, Value = 0.5,
+    Format = ".%",
+})
+
+basic:AddSlider("DemoCustom", {
+    Text = "Custom format",
+    Min = 1, Max = 10, Step = 1, Value = 3,
+    Format = function(slider) return slider.Value .. " studs" end,
+})
+
+input:AddDropdown("DemoMode", {
+    Text = "Mode",
+    Values = { "Quiet", "Normal", "Fast" },
+    Value = 2,
+    Callback = function(value) setStatus("mode " .. tostring(value)) end,
+})
+
+input:AddDropdown("DemoMulti", {
+    Text = "Multi select",
+    Values = { "One", "Two", "Three" },
+    Multi = true,
+    Value = { 1, 3 },
+    Callback = function(selected)
+        local list = {}
+        for name, on in pairs(selected) do
+            if on then table.insert(list, name) end
+        end
+        setStatus(#list > 0 and table.concat(list, ", ") or "none")
+    end,
+})
+
+input:AddDropdown("DemoOptional", {
+    Text = "Optional pick",
+    Values = { "Red", "Green", "Blue" },
+    Value = false,
+    AllowUnselect = true,
+})
+
+input:AddTextBox("DemoText", {
+    Text = "Text box",
+    PlaceholderText = "type and press Enter",
+    Value = "",
+    RequiresEnter = true,
+    Callback = function(text) setStatus(text) end,
+})
+
+input:AddTextBox("DemoLive", {
+    Text = "Live text box",
+    PlaceholderText = "updates as you type",
+    Instant = true,
+    NoConfigs = true,
+    Callback = function(text) setStatus(text) end,
+})
+
+input:AddInput("DemoKey", {
+    Text = "Keybind",
+    Value = Enum.KeyCode.K,
+    KeySet = function(key) setStatus("key set to " .. (key and key.Name or "none")) end,
+    Callback = function() notify("Keybind", "pressed") end,
+})
+
+local accentLabel = input:AddLabel({ Text = "Label with color picker" })
+accentLabel:AddColorPicker({
+    Value = Color3.fromRGB(100, 160, 255),
+    Callback = function(color) print("[Showcase] color:", color) end,
+})
+
+--// Tab: Features
+local features = window:AddTab("Features", { Text = "Features", Icon = "Cog" })
+local prompts = features:AddLeftGroupbox("Notifications", { Text = "Notifications" })
+local display = features:AddRightGroupbox("Display", { Text = "Display" })
+
+prompts:AddButton({
+    Text = "Toast",
+    Callback = function() notify("Fire Library", "toast notification") end,
+})
+
+prompts:AddButton({
+    Text = "Toast with buttons",
+    Callback = function()
+        local yes = window:Notification({
+            Title = "Question", Text = "Like it?", Duration = 10, HasButtons = true,
+        })
+        notify("Answer", yes and "yes" or "no")
+    end,
+})
+
+prompts:AddButton({
+    Text = "In-window dialog",
+    Callback = function()
+        local yes = window:WindowNotification({
+            Title = "Confirm", Text = "Does this work?", HasButtons = true,
+        })
+        notify("Confirm", yes and "yes" or "no")
+    end,
+})
+
+prompts:AddButton({
+    Text = "Smart notification",
+    Tooltip = "Toast when hidden, dialog when visible",
+    Callback = function()
+        window:SmartNotification({ Title = "Smart", Text = "picked for you" })
+    end,
+})
+
+display:AddButton({
+    Text = "Toggle floating label",
+    Callback = function()
+        if floating then
+            floating:Destroy()
+            floating = nil
+        else
+            floating = window:FloatingLabel("DemoFloat", { Title = "Status", Text = "Fire Library" })
+        end
+    end,
+})
+
+display:AddButton({
+    Text = "Hide for 3 s",
+    Callback = function()
+        window:Hide()
+        task.wait(3)
+        if not closed then window:Show() end
+    end,
+})
+
+display:AddButton({
+    Text = "Translated button",
+    Translations = { EN = "Translated button", RU = "Переведённая кнопка" },
+    Callback = function() notify("Language", "set Language = \"EN\" to see the English text") end,
+})
+
+display:AddButton({
+    Text = "Print API",
+    Tooltip = "Lists methods and properties in the console",
+    Callback = function() window:PrintAll() end,
+})
+
+display:AddButton({
+    Text = "Go to Controls",
+    Callback = function() controls:SwitchTo() end,
+})
+
+--// Tab: Data
+window:AddSeparator()
+local data = window:AddTab("Data", { Text = "Data", Icon = "Save" })
+local theme = data:AddLeftGroupbox("Theme", { Text = "Theme" })
+local config = data:AddRightGroupbox("Config", { Text = "Config" })
+
+local savedTheme, savedConfig
+
+theme:AddButton({
+    Text = "Reset accent",
+    Callback = function()
+        window.Options.Theme.Main = Color3.fromRGB(247, 43, 128)
+        window:Refresh()
+    end,
+})
+
+theme:AddButton({
+    Text = "Save theme string",
+    Callback = function()
+        savedTheme = window:GetThemeString()
+        if setclipboard then setclipboard(savedTheme) end
+        notify("Theme", "saved (copied if supported)")
+    end,
+})
+
+theme:AddButton({
+    Text = "Load theme string",
+    Callback = function()
+        if not savedTheme then return notify("Theme", "save one first") end
+        local decoded, applied = window:SetThemeString(savedTheme)
+        notify("Theme", ("decoded %s, applied %s"):format(tostring(decoded), tostring(applied)))
+    end,
+})
+
+config:AddButton({
+    Text = "Save config string",
+    Callback = function()
+        savedConfig = window:GetConfigString()
+        notify("Config", "saved for this session")
+    end,
+})
+
+config:AddButton({
+    Text = "Load config string",
+    Callback = function()
+        if not savedConfig then return notify("Config", "save one first") end
+        local decoded, applied = window:SetConfigString(savedConfig)
+        notify("Config", ("decoded %s, applied %s"):format(tostring(decoded), tostring(applied)))
+    end,
+})
+
+config:AddSeparator()
+config:AddButton({ Text = "Unload", Icon = "Trash", Callback = unload })
+
+notify("Fire Library", "loaded, Right Shift toggles the window")
+```
+
+## Что показано
+
+| Область | Чем показано |
+| --- | --- |
+| Окно | `Text`, `Footer`, `Keybind`, `Theme`, `UserProfile`, мобильная кнопка, `OnClose` |
+| Разметка | `AddHeader`, `AddTab` с иконками, левый и правый groupbox, `AddSeparator`, `SwitchTo` |
+| Элементы | Button (иконка, tooltip, `Holdable`, disabled), toggle, checkbox, форматы slider, dropdown (одиночный, множественный, со сбросом), text box (`RequiresEnter`, `Instant`), keybind, color picker, label с rich text |
+| Сообщения | Toast, toast с кнопками, `WindowNotification`, `SmartNotification`, `FloatingLabel` |
+| Данные | Share-строки темы и конфига |
+| Прочее | `Translations`, `PrintAll`, `KeySystem`, безопасная выгрузка при повторном запуске |
+
+Встроенные страницы Config, Theme и Other Settings библиотека добавляет сама.
