@@ -1,0 +1,12 @@
+---
+title: "Windows and layout"
+description: "Organize your interface with tabs and groupboxes."
+---
+
+Window options include `Text` (preferred over the `Title` fallback), `Footer`, `Keybind` (default `LeftAlt`), `Visible`, `Language`, `Theme`, `UserProfile`, `AnimationSpeed`, `ColorChangeSpeed`, `BlurBackground`, `EnableUIBlur`, `NoStrokes`, `RoundEverything`, `MobileButtonVisible` and `MobileButtonAlwaysVisible`.
+
+`window:AddTab`, `AddCustomTab`, `AddHeader` and `AddSeparator` create navigation items. A tab supports controls directly and `AddGroupbox`, `AddLeftGroupbox`, or `AddRightGroupbox`. Ordinary controls also have `New...` and short-name aliases. The documented spelling for checkbox is `AddCheckBox`.
+
+`tab:SwitchTo()` selects a tab. `window:SetTab(flag)`, `SetTab(tab)` and `SetTab(nil)` select or clear it. `window:Hide()`, `Show()` and `Toggle()` control visibility; `TryClose()` asks for confirmation and `Close()` closes the window.
+
+**Close behavior:** this revision calls `Set` on registered controls to restore their initial defaults during `Close()`. Changed values may invoke callbacks, so callbacks that start or stop work must handle shutdown. Window closure does not necessarily remove library-wide loops or shared globals.

@@ -1,0 +1,19 @@
+---
+title: "Themes and configs"
+description: "Change colors and save or restore settings."
+---
+
+The library has built-in settings pages for theme, config, and other options. A live theme has `Main`, `Back`, `Stroke`, and `Text` colors:
+
+```lua
+window.Options.Theme.Main = Color3.fromRGB(255, 90, 80)
+window:Refresh()
+local configString = window:GetConfigString()
+local decoded, applied = window:SetConfigString(configString)
+local themeString = window:GetThemeString()
+local themeDecoded, themeApplied = window:SetThemeString(themeString)
+```
+
+`GetConfig()` and `GetTheme()` expose serialized tables; `SetConfig()` and `SetTheme()` apply those formats. Their return behavior differs: use the two boolean results from the share-string setters to distinguish decoding from application. Applying a config can invoke control callbacks. A successful decode does not guarantee every individual control applied as intended.
+
+File-backed settings require **all** of `writefile`, `readfile`, `delfile` or `deletefile`, `makefolder`, `listfiles`, `isfolder`, and `isfile`. The source uses `FireLibrary/Configs/`, `Themes/` and `Cache/`, and `.shrimp` files. Share-string APIs are separate from disk storage; they rely on Roblox encoding/compression services being available. Config/theme names in the built-in UI must be 1–32 characters and cannot contain `/` or `\`.

@@ -1,0 +1,31 @@
+---
+title: "Controls"
+description: "Use buttons, toggles, sliders, labels and text boxes."
+---
+
+```lua
+box:AddButton({ Text = "Refresh", Callback = function(button)
+    print("clicked", button)
+end })
+
+local toggle = box:AddToggle("Enabled", {
+    Text = "Enabled", Value = false,
+    Callback = function(value, control) print(value) end,
+})
+toggle:Set(true)
+
+box:AddCheckBox("Hints", { Text = "Hints", Value = false })
+box:AddSlider("Amount", {
+    Text = "Amount", Min = 0, Max = 100, Step = 5, Value = 50,
+    Format = "/", Callback = function(value, control) print(value) end,
+})
+```
+
+Common options include `Text`, `Visible`, `Disabled`, `Tooltip`, `DisabledTooltip`, `Order` and `Translations`; the exact options depend on the control. `Default` overrides `Value` during object creation. `NoConfigs` excludes supported values from config serialization, with exceptions for attached keybinds.
+
+- **Button:** normal callback receives the control. `Holdable = true` changes it to a press/release callback receiving a boolean and control. Buttons, toggles, labels and inputs support attached color pickers via `:AddColorPicker({ Value = Color3.new(...), Callback = function(color, picker) end })`.
+- **Toggle:** `:Set(value)` fires change/callback when its value changes. `:Toggle(value, noCallback)` accepts an optional value and callback suppression flag.
+- **Slider:** `Min`, `Max`, `Step`, `Value`, `Styled`, `Compact`, `ShowCompactValue`, `AllowSetValue`, and `BypassSetValue` are supported. `Minimum` and `Maximum` are aliases. `:Set` sets the supplied value; its implementation does not clamp it, so validate external values yourself. Keep `Max` and `Min` different.
+- **Slider formats:** `.`, `%`, `.%`, `.1%`, `.2%`, `/`, `//`, `/%`, `a`, `+`, `$`, `e`, `x` and `,`, or a formatter function receiving the slider. `.%` interprets 1 as 100%; `%` displays the raw value rounded with a percent sign. Some formats divide by `Max` or `Max - Min`.
+- **Label:** assign `label.Text = "new text"`. Labels support rich text in their displayed text.
+- **TextBox:** `Instant = true` calls on text changes; otherwise the callback runs on focus loss. `RequiresEnter = true` requires Enter, except when `MultiLine = true`. `ValueUsesPlaceholder` changes the value passed to the callback for an empty input. `:Set(text)` invokes its callback on a change.

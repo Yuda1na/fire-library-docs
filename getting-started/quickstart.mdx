@@ -1,0 +1,31 @@
+---
+title: "Quickstart"
+description: "Create a window, organize controls and respond to input."
+---
+
+After [loading Fire Library](/getting-started/installation), create a window and a tab:
+
+```lua
+local window = Fire:Window({
+    Text = "My Interface",
+    Footer = "Settings",
+    Keybind = Enum.KeyCode.RightShift,
+})
+
+local main = window:AddTab("Main", { Text = "Main", Icon = "Home" })
+local general = main:AddLeftGroupbox("General", { Text = "General" })
+
+general:AddButton({
+    Text = "Test",
+    Callback = function()
+        window:Notification({ Title = "Ready", Text = "Button clicked", Duration = 4 })
+    end,
+})
+
+general:AddSlider("Volume", {
+    Text = "Volume", Min = 0, Max = 100, Step = 5, Value = 50,
+    Callback = function(value) print("Volume:", value) end,
+})
+```
+
+Press Right Shift to toggle the window. Add a [dropdown](/guides/dropdowns), [keybind](/guides/keybinds), or [floating label](/guides/notifications) next.

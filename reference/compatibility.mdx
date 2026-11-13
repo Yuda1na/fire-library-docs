@@ -1,0 +1,11 @@
+---
+title: "Compatibility"
+description: "Version-specific behavior and runtime considerations."
+---
+
+- `Fire:Window()` waits for built-in settings initialization; initialization failures can prevent it from returning.
+- `window:KeySystem({ KeyUrl = "...", Callback = function(key) return key == "..." end })` displays a client-side prompt and waits for success or window close. This callback alone is not server-side authorization.
+- The generated code assigns `getfenv().require` and caches helper libraries in globals. It also creates shared GUI objects and persistent frame/clock listeners; closing one window is not a full library unload.
+- Blur and cursor helpers register frame callbacks. Performance and cleanup depend on the runtime and should be measured rather than assumed.
+- Window `Size` is present in defaults, but the source itself notes its implementation is incomplete.
+- The README says configs are coming soon while the inspected source contains config code. Treat the checked revision and runtime test as authoritative.

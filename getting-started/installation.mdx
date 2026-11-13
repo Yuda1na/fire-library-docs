@@ -1,0 +1,16 @@
+---
+title: "Installation"
+description: "Set up the library in your runtime."
+---
+
+For Roblox Studio, the repository README says to copy `Files/Library.lua` into a ModuleScript and append the following after `local obj = objects["Instance0"];`:
+
+```lua
+return require(obj:FindFirstChildOfClass("ModuleScript"))
+```
+
+Require that ModuleScript from a LocalScript. The generated source replaces `getfenv().require` with its own module resolver and creates GUI objects; validate the packaging and GUI parenting in your own Studio environment. Studio compatibility has not been tested here.
+
+The repository's executor loader uses HTTP and `loadstring`, caches the library in `getgenv().FireLibrary` or `_G.FireLibrary`, and may read and write `FireLibrary/Library.lua` and `FireLibrary/Library.txt`. The supplied loader builds malformed URLs for the commit lookup and source download. Its `Invalid request return` error can therefore occur before the UI is created. Its cache also depends on available filesystem functions and folders. Fix the loader itself for a permanent solution; changing documentation alone will not repair it.
+
+A community test script loads the pinned raw source directly and performs the same generated-source adjustment the loader attempts. It executes third-party code and depends on executor capabilities. A pinned commit makes the source revision reproducible; it does not establish that the code is safe.

@@ -1,0 +1,14 @@
+---
+title: "Objects and flags"
+description: "Understand controls, properties and stable IDs."
+---
+
+```lua
+local window = Fire:Window({ Text = "Test", Keybind = Enum.KeyCode.RightShift })
+local tab = window:AddTab("Main", { Text = "Main" })
+local box = tab:AddLeftGroupbox("General", { Text = "General" })
+```
+
+Most creation methods accept either `(options)` or `(flag, options)`. Use stable, unique flags within the parent when saving configs: controls are stored in the parent's `Objects` table by flag. Unnamed flags are derived from text and counters, so changing labels or creation order can affect saved data.
+
+The library returns **userdata proxies**, not ordinary tables. Use `window:PrintAll()` or `control:PrintAll()` for a runtime list of exposed methods and properties. Properties such as `control.Value` forward to options, and assignments schedule a refresh. Do not assume direct assignment calls the control callback: use `:Set(value)` when the control supports it and you want its setter behavior. The generated `Get...` helper can error on false-valued options in this revision; direct property access is safer.

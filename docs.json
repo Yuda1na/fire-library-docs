@@ -1,0 +1,15 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Fire Library",
+  "colors": { "primary": "#F72B80", "light": "#FF76AA", "dark": "#C41562" },
+  "favicon": "/favicon.svg",
+  "navigation": {
+    "groups": [
+      { "group": "Get started", "pages": ["index", "getting-started/installation", "getting-started/quickstart", "getting-started/objects"] },
+      { "group": "Build your interface", "pages": ["guides/windows", "guides/controls", "guides/dropdowns", "guides/keybinds", "guides/notifications"] },
+      { "group": "Customize", "pages": ["guides/themes-configs", "guides/localization-icons"] },
+      { "group": "Reference", "pages": ["reference/compatibility", "reference/troubleshooting"] }
+    ]
+  }
+}

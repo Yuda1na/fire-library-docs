@@ -1,0 +1,16 @@
+---
+title: "Keybinds"
+description: "Add a key selector and handle key presses."
+---
+
+`AddInput` and `AddKeybind` are aliases for the key selector. `KeySet` receives the selected `Enum.KeyCode` or `nil`; `Callback` is the action associated with pressing the chosen key. Input controls are displayed only when the library considers the device desktop. Values are normalized internally to numeric key codes or `false`.
+
+```lua
+box:AddInput("ActionKey", {
+    Text = "Action key", Value = Enum.KeyCode.K,
+    KeySet = function(key) print("key:", key) end,
+    Callback = function(control) print("pressed") end,
+})
+```
+
+Buttons and toggles also get an attached keybind object for the library's keybind-editing mode. Its lifecycle and callbacks differ from a standalone input; test the built-in settings UI before depending on it.

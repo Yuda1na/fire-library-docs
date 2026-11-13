@@ -1,0 +1,24 @@
+---
+title: "Troubleshooting"
+description: "Find common loading and interface issues."
+---
+
+## The loader reports `Invalid request return`
+
+The inspected repository loader constructs invalid GitHub URLs. Check the exact `Loader.lua` revision you are using and its HTTP response before troubleshooting the UI. The loader needs a code fix; this documentation does not change it.
+
+## The window does not appear
+
+Check the earliest console error, confirm the library loaded in a client context, and test the configured window keybind. `Fire:Window()` waits for its built-in settings initialization, so a failure there may prevent it from returning. The generated UI's parenting and runtime support need to be tested in the target environment.
+
+## A dropdown shows the wrong choices
+
+Use `Values` for the option list in version 5.2.6. See [Dropdowns](/guides/dropdowns) for how converted and raw selections work.
+
+## Configs do not save
+
+The built-in file manager requires all of the filesystem functions listed in [Themes and configs](/guides/themes-configs). Share strings and file-backed storage are separate features. Applying a saved config may invoke callbacks.
+
+## `type(Fire)` is not `table`
+
+The inspected version returns userdata proxies. Access the documented methods on the returned object; do not reject it solely because `type(Fire)` is not `table`.

@@ -1,0 +1,12 @@
+---
+title: "Localization and icons"
+description: "Translate labels and choose icons."
+---
+
+Language is normalized to the first two uppercase characters. Translations are keyed by language and can be strings for `Text` or tables for named fields:
+
+```lua
+tab:AddButton({ Text = "Save", Translations = { EN = "Save", RU = "Сохранить" } })
+```
+
+The source includes named icons such as `Home`, `Cog`, `Save` and `Trash`, plus Lucide names such as `l://circle-arrow-left`; numeric asset IDs and `rbxassetid://...` are accepted. Remote image URLs use an optional download/cache path and depend on runtime file and asset APIs. Do not assume every image or blur works on every device.
