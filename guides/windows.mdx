@@ -1,12 +1,40 @@
 ---
 title: "Windows and layout"
 description: "Organize your interface with tabs and groupboxes."
+icon: "window-maximize"
 ---
 
-Window options include `Text` (preferred over the `Title` fallback), `Footer`, `Keybind` (default `LeftAlt`), `Visible`, `Language`, `Theme`, `UserProfile`, `AnimationSpeed`, `ColorChangeSpeed`, `BlurBackground`, `EnableUIBlur`, `NoStrokes`, `RoundEverything`, `MobileButtonVisible` and `MobileButtonAlwaysVisible`.
+A window holds tabs; tabs hold controls or groupboxes. Full option list: [Window options](/reference/window-options).
 
-`window:AddTab`, `AddCustomTab`, `AddHeader` and `AddSeparator` create navigation items. A tab supports controls directly and `AddGroupbox`, `AddLeftGroupbox`, or `AddRightGroupbox`. Ordinary controls also have `New...` and short-name aliases. The documented spelling for checkbox is `AddCheckBox`.
+```lua
+local window = Fire:Window({ Text = "My Interface", Keybind = Enum.KeyCode.RightShift })
 
-`tab:SwitchTo()` selects a tab. `window:SetTab(flag)`, `SetTab(tab)` and `SetTab(nil)` select or clear it. `window:Hide()`, `Show()` and `Toggle()` control visibility; `TryClose()` asks for confirmation and `Close()` closes the window.
+window:AddHeader({ Text = "General" })
+local main = window:AddTab("Main", { Text = "Main", Icon = "Home" })
+window:AddSeparator()
 
-**Close behavior:** this revision calls `Set` on registered controls to restore their initial defaults during `Close()`. Changed values may invoke callbacks, so callbacks that start or stop work must handle shutdown. Window closure does not necessarily remove library-wide loops or shared globals.
+local left = main:AddLeftGroupbox("Left", { Text = "Left" })
+local right = main:AddRightGroupbox("Right", { Text = "Right" })
+```
+
+## Tab list
+
+`AddTab`, `AddCustomTab`, `AddHeader`, `AddSeparator`.
+
+## Groupboxes
+
+`AddGroupbox`, `AddLeftGroupbox`, `AddRightGroupbox`. Tabs also accept controls directly.
+
+## Navigation and visibility
+
+| Method | Effect |
+| --- | --- |
+| `tab:SwitchTo()` | Select a tab |
+| `window:SetTab(flag)`, `SetTab(tab)`, `SetTab(nil)` | Select or clear the tab |
+| `Show()`, `Hide()`, `Toggle()` | Visibility |
+| `TryClose()` | Close with confirmation |
+| `Close()` | Close immediately |
+
+<Warning>
+  `Close()` resets every control to its default through `:Set`, so callbacks fire. Make callbacks that start work also handle shutdown. Closing doesn't unload library-wide loops or globals.
+</Warning>

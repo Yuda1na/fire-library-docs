@@ -1,7 +1,10 @@
 ---
 title: "Toggle and checkbox"
 description: "Store a true or false value."
+icon: "toggle-on"
 ---
+
+A boolean switch. `AddCheckBox` is the same control with checkbox styling.
 
 ```lua
 local enabled = box:AddToggle("Enabled", {
@@ -17,8 +20,14 @@ enabled:Set(true)
 print(enabled.Value)
 ```
 
-`Value` is the starting state. `:Set(value)` updates the value and calls the callback when it changes. `:Toggle(value, noCallback)` can also set or flip the state; passing `true` as the second argument suppresses its callback.
+| Method | Behavior |
+| --- | --- |
+| `:Set(value)` | Sets the value, fires the callback on change |
+| `:Toggle(value?, noCallback?)` | Flips or sets the state. `noCallback = true` skips the callback. |
+| `:AddColorPicker(options)` | Attaches a [color picker](/elements/color-picker) |
 
-`AddCheckBox` uses the toggle control with checkbox styling. Both support `Disabled`, `Visible`, `Tooltip`, `DisabledTooltip`, `Order`, `NoConfigs`, and `Translations`. Attach colors with `:AddColorPicker(options)`.
+Supports the [common options](/guides/controls#common-options).
 
-<Note>Closing the window resets registered controls to their initial values using setters. Callbacks can run during closure.</Note>
+<Warning>
+  Closing the window resets every registered control to its initial value through `:Set`, so callbacks fire during close.
+</Warning>

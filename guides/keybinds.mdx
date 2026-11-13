@@ -1,9 +1,10 @@
 ---
-title: "Keybinds"
+title: "Keybind"
 description: "Add a key selector and handle key presses."
+icon: "command"
 ---
 
-`AddInput` and `AddKeybind` are aliases for the key selector. `KeySet` receives the selected `Enum.KeyCode` or `nil`; `Callback` is the action associated with pressing the chosen key. Input controls are displayed only when the library considers the device desktop. Values are normalized internally to numeric key codes or `false`.
+`AddKeybind` and `AddInput` are aliases. Desktop only: hidden on mobile.
 
 ```lua
 box:AddInput("ActionKey", {
@@ -13,4 +14,12 @@ box:AddInput("ActionKey", {
 })
 ```
 
-Buttons and toggles also get an attached keybind object for the library's keybind-editing mode. Its lifecycle and callbacks differ from a standalone input; test the built-in settings UI before depending on it.
+| Option | Purpose |
+| --- | --- |
+| `Value` | Starting `Enum.KeyCode` |
+| `KeySet` | Runs when the user picks a key. Receives `Enum.KeyCode` or `nil`. |
+| `Callback` | Runs when the bound key is pressed |
+
+Values are stored as numeric key codes or `false`.
+
+Buttons and toggles also get an attached keybind used by the built-in keybind-editing mode. It behaves differently from a standalone keybind.

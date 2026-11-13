@@ -1,0 +1,31 @@
+---
+title: "Dropdown"
+description: "Списки с одиночным и множественным выбором."
+icon: "list"
+---
+
+<Warning>
+  Используйте `Values`, а не `Options`. В bundled-примере библиотеки ошибка, реализация читает `Values` (или устаревший `Variants`).
+</Warning>
+
+```lua
+local mode = box:AddDropdown("Mode", {
+    Text = "Mode",
+    Values = { "Low", "Normal", "High" },
+    Value = 2,
+    Callback = function(value, raw, control)
+        print(value, raw)
+    end,
+})
+mode:Set(3)
+mode.Values = { "Slow", "Fast" }
+```
+
+## Аргументы callback
+
+| Режим | `Convert = true` (по умолчанию) | `Convert = false` |
+| --- | --- | --- |
+| Одиночный | `value, index, control` | `index, value, control` |
+| Множественный | `{ [value] = bool }, indexList, control` | `indexList, { [value] = bool }, control` |
+
+`Value` хранит индекс, список индексов или `false`. `AllowUnselect` позволяет в одиночном выборе сбросить выбор. Избегайте дублирующихся элементов в `Values`.

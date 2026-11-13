@@ -1,0 +1,28 @@
+---
+title: "Ключевая система"
+description: "Отображение клиентского запроса ключа."
+icon: "key"
+---
+
+Показывает запрос ключа и ждет, пока ключ не будет принят или окно не закроется.
+
+```lua
+local accepted = window:KeySystem({
+    KeyUrl = "https://example.com/key",
+    Callback = function(key)
+        return key == "example"
+    end,
+})
+
+if not accepted then return end
+```
+
+| Опция | Обязательная | Назначение |
+| --- | --- | --- |
+| `KeyUrl` | Да | Ссылка для получения ключа |
+| `Callback` | Да | Возвращает `true`, если ключ принят |
+| `Background`, `BackgroundImage` | Нет | Фон окна запроса |
+
+<Warning>
+  Валидация выполняется на клиенте. Все проверки внутри callback можно обойти.
+</Warning>

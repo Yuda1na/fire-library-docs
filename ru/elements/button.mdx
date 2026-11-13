@@ -1,0 +1,33 @@
+---
+title: "Button"
+description: "Запускает действие при нажатии на кнопку."
+icon: "hand-pointer"
+---
+
+Запускает `Callback` при клике.
+
+```lua
+local button = box:AddButton("Refresh", {
+    Text = "Refresh",
+    Icon = "Repeat",
+    Tooltip = "Refresh the list",
+    Callback = function(button)
+        print("clicked")
+    end,
+})
+
+button.Disabled = true
+button.Text = "Unavailable"
+```
+
+| Опция | По умолчанию | Назначение |
+| --- | --- | --- |
+| `Text` | `"Button"` | Подпись |
+| `Callback` | function | Запускается при клике |
+| `Icon` | `"Cursor"` | Название иконки или asset |
+| `Holdable` | `false` | Callback получает нажатие и отпускание |
+| `Disabled`, `Visible` | `false`, `true` | Взаимодействие и видимость |
+| `Tooltip`, `DisabledTooltip` | `""` | Текст при наведении |
+| `RecolorIcon` | `true` | Окрашивать иконку в цвет темы |
+
+При `Holdable = true` callback получает `true` при нажатии, `false` при отпускании, затем сам control. Прикрепите [color picker](/ru/elements/color-picker) через `button:AddColorPicker(options)`.

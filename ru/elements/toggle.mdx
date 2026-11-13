@@ -1,0 +1,33 @@
+---
+title: "Toggle и checkbox"
+description: "Хранит значение true или false."
+icon: "toggle-on"
+---
+
+Булев переключатель. `AddCheckBox` создает тот же control, но со стилем checkbox.
+
+```lua
+local enabled = box:AddToggle("Enabled", {
+    Text = "Enabled",
+    Value = false,
+    Callback = function(value)
+        print("enabled:", value)
+    end,
+})
+
+box:AddCheckBox("ShowHints", { Text = "Show hints", Value = false })
+enabled:Set(true)
+print(enabled.Value)
+```
+
+| Метод | Поведение |
+| --- | --- |
+| `:Set(value)` | Устанавливает значение, вызывает callback при изменении |
+| `:Toggle(value?, noCallback?)` | Переключает или задает состояние. `noCallback = true` пропускает callback. |
+| `:AddColorPicker(options)` | Прикрепляет [color picker](/ru/elements/color-picker) |
+
+Поддерживает [общие опции](/ru/guides/controls).
+
+<Warning>
+  Закрытие окна сбрасывает каждый зарегистрированный control к начальному значению через `:Set`, поэтому callbacks срабатывают при закрытии.
+</Warning>

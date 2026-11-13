@@ -1,0 +1,22 @@
+---
+title: "Labels, headers и separators"
+sidebarTitle: "Labels и separators"
+description: "Добавляет текст и организует страницу."
+icon: "text"
+---
+
+Статический текст и вспомогательные элементы раскладки.
+
+```lua
+local label = box:AddLabel({ Text = "Status: idle" })
+label.Text = "Status: ready"
+box:AddHeader({ Text = "Options" })
+box:AddSeparator()
+box:AddSeparator({ Invisible = true })
+```
+
+- **Label:** поддерживает rich text. Обновляется через `label.Text = "..."`.
+- **Header:** заголовок секции в tab или groupbox. `window:AddHeader` добавляет его в список вкладок.
+- **Separator:** разделительная линия. `Invisible = true` оставляет только отступ.
+
+Все поддерживают `Visible` и `Order`.

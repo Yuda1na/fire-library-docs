@@ -1,13 +1,16 @@
 ---
 title: "Color picker"
 description: "Attach a color selector to a control."
+icon: "eye-dropper"
 ---
+
+Attaches to a button, toggle, label or keybind.
 
 ```lua
 local label = box:AddLabel({ Text = "Accent" })
 local picker = label:AddColorPicker({
     Value = Color3.fromRGB(255, 90, 130),
-    Tooltip = "accent color",
+    Tooltip = "Accent color",
     Callback = function(color)
         window.Options.Theme.Main = color
         window:Refresh()
@@ -16,4 +19,4 @@ local picker = label:AddColorPicker({
 picker:Set(Color3.fromRGB(100, 160, 255))
 ```
 
-Color pickers can be attached to buttons, toggles, labels and input controls. They accept `Value`, `Callback`, `Tooltip`, `Visible`, `Disabled` and `Order`. The callback receives a `Color3` and the picker. `:Set(color)` invokes the callback when the color changes.
+Options: `Value`, `Callback`, `Tooltip`, `Visible`, `Disabled`, `Order`. The callback receives the `Color3` and the picker. `:Set(color)` fires it on change.

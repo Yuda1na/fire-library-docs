@@ -5,11 +5,122 @@
   "colors": { "primary": "#F72B80", "light": "#FF76AA", "dark": "#C41562" },
   "favicon": "/favicon.svg",
   "navigation": {
-    "groups": [
-      { "group": "Get started", "pages": ["index", "getting-started/installation", "getting-started/quickstart", "getting-started/objects"] },
-      { "group": "Build your interface", "pages": ["guides/windows", "guides/controls", "elements/button", "elements/toggle", "elements/slider", "guides/dropdowns", "elements/textbox", "guides/keybinds", "elements/color-picker", "elements/text", "guides/notifications"] },
-      { "group": "Customize", "pages": ["guides/themes-configs", "guides/localization-icons"] },
-      { "group": "Reference", "pages": ["reference/window-options", "reference/key-system", "reference/compatibility", "reference/troubleshooting"] }
+    "languages": [
+      {
+        "language": "en",
+        "default": true,
+        "groups": [
+          {
+            "group": "Get started",
+            "pages": [
+              "index",
+              "getting-started/installation",
+              "getting-started/quickstart",
+              "getting-started/objects",
+              "reference/troubleshooting"
+            ]
+          },
+          {
+            "group": "Guides",
+            "pages": [
+              "guides/windows",
+              "guides/notifications",
+              "guides/themes-configs",
+              "guides/localization-icons"
+            ]
+          },
+          {
+            "group": "Elements",
+            "pages": [
+              "guides/controls",
+              "elements/button",
+              "elements/toggle",
+              "elements/slider",
+              "guides/dropdowns",
+              "elements/textbox",
+              "guides/keybinds",
+              "elements/color-picker",
+              "elements/text"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": [
+              "reference/window-options",
+              "reference/key-system",
+              "reference/compatibility"
+            ]
+          }
+        ]
+      },
+      {
+        "language": "ru",
+        "groups": [
+          {
+            "group": "Начало работы",
+            "pages": [
+              "ru/index",
+              "ru/getting-started/installation",
+              "ru/getting-started/quickstart",
+              "ru/getting-started/objects",
+              "ru/reference/troubleshooting"
+            ]
+          },
+          {
+            "group": "Руководства",
+            "pages": [
+              "ru/guides/windows",
+              "ru/guides/notifications",
+              "ru/guides/themes-configs",
+              "ru/guides/localization-icons"
+            ]
+          },
+          {
+            "group": "Элементы",
+            "pages": [
+              "ru/guides/controls",
+              "ru/elements/button",
+              "ru/elements/toggle",
+              "ru/elements/slider",
+              "ru/guides/dropdowns",
+              "ru/elements/textbox",
+              "ru/guides/keybinds",
+              "ru/elements/color-picker",
+              "ru/elements/text"
+            ]
+          },
+          {
+            "group": "Справочник",
+            "pages": [
+              "ru/reference/window-options",
+              "ru/reference/key-system",
+              "ru/reference/compatibility"
+            ]
+          }
+        ]
+      }
     ]
+  },
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
+  },
+  "navbar": {
+    "links": [
+      {
+        "href": "https://discord.gg/4bexJD6WVT",
+        "label": "Discord"
+      }
+    ],
+    "primary": {
+      "type": "github",
+      "href": "https://github.com/Its-Kawi/Fire-Library"
+    }
+  },
+  "footer": {
+    "socials": {
+      "github": "https://github.com/Its-Kawi/Fire-Library",
+      "discord": "https://discord.gg/4bexJD6WVT"
+    }
   }
 }

@@ -1,16 +1,42 @@
 ---
 title: "Installation"
-description: "Set up the library in your runtime."
+description: "Load Fire Library in your executor."
+icon: "download"
 ---
 
-For Roblox Studio, the repository README says to copy `Files/Library.lua` into a ModuleScript and append the following after `local obj = objects["Instance0"];`:
+Fire Library is built for executor scripts: mod menus, admin panels, utility scripts.
+
+## Load it
+
+The official `Loader.lua` builds broken GitHub URLs and fails with `Invalid request return`. Load the pinned source directly instead:
 
 ```lua
-return require(obj:FindFirstChildOfClass("ModuleScript"))
+local url = "https://raw.githubusercontent.com/Its-Kawi/Fire-Library/2f57dd6de90b6d92525f6c8c3e4024f8d94e0dc2/Files/Library.lua"
+local src = game:HttpGet(url)
+local stop = src:find(";", src:find("local", 1, true), true)
+
+local Fire = loadstring(
+    "local parent = nil" .. src:sub(stop + 1)
+    .. "\nreturn require(obj:FindFirstChildOfClass(\"ModuleScript\"))"
+)()
 ```
 
-Require that ModuleScript from a LocalScript. The generated source replaces `getfenv().require` with its own module resolver and creates GUI objects; validate the packaging and GUI parenting in your own Studio environment. Studio compatibility has not been tested here.
+Requires `game:HttpGet` and `loadstring`. Saving configs and themes also needs the file functions listed in [Themes and configs](/guides/themes-configs#saving-to-disk).
 
-The repository's executor loader uses HTTP and `loadstring`, caches the library in `getgenv().FireLibrary` or `_G.FireLibrary`, and may read and write `FireLibrary/Library.lua` and `FireLibrary/Library.txt`. The supplied loader builds malformed URLs for the commit lookup and source download. Its `Invalid request return` error can therefore occur before the UI is created. Its cache also depends on available filesystem functions and folders. Fix the loader itself for a permanent solution; changing documentation alone will not repair it.
+<Accordion title="Embedding in your own game">
+  Not the main use case, but supported upstream:
 
-A community test script loads the pinned raw source directly and performs the same generated-source adjustment the loader attempts. It executes third-party code and depends on executor capabilities. A pinned commit makes the source revision reproducible; it does not establish that the code is safe.
+  1. Copy `Files/Library.lua` into a ModuleScript.
+  2. Append this line at the very bottom:
+     ```lua
+     return require(obj:FindFirstChildOfClass("ModuleScript"))
+     ```
+  3. Require it from a LocalScript:
+     ```lua
+     local Fire = require(path.to.FireLibrary)
+     ```
+
+  Without file functions, the Config and Theme pages fall back to share strings only.
+</Accordion>
+
+Next: [Quickstart](/getting-started/quickstart).

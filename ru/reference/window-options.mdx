@@ -1,0 +1,50 @@
+---
+title: "Опции окна"
+description: "Справочник по общим настройкам и методам окна."
+icon: "gear"
+---
+
+Опции для `Fire:Window(options)`. Значения по умолчанию из v5.2.6.
+
+| Опция | По умолчанию | Описание |
+| --- | --- | --- |
+| `Text`, `Title` | `""`, имя библиотеки | Заголовок окна, `Title` используется как fallback |
+| `Footer` | `""` | Текст под окном |
+| `Visible` | `true` | Начальная видимость |
+| `Keybind` | `Enum.KeyCode.LeftAlt` | Клавиша переключения видимости на десктопе |
+| `Language` | `"EN"` | Код языка, нормализуется до двух заглавных букв |
+| `UserProfile` | `false` | Показывать профиль игрока |
+| `SubscriptionExpiry` | `false` | Текст или timestamp истечения подписки в профиле |
+| `Theme` | pink, dark background | Таблица с цветами `Main`, `Back`, `Stroke`, `Text` |
+| `ThemeString` | `""` | Строка для шаринга темы |
+| `AnimationSpeed` | `1` | Множитель скорости анимации |
+| `ColorChangeSpeed` | `0.3` | Скорость перехода цветов темы |
+| `BlurBackground` | `false` | Размытие фона, зависит от runtime и качества |
+| `EnableUIBlur` | `true` | Включить внутреннее размытие UI |
+| `FullBlurSize`, `BlurProfile` | `false`, `false` | Опции размера размытия и профиля |
+| `BackgroundTransparency` | `0` | Прозрачность фона окна |
+| `ShadowTransparency`, `ShadowSize` | `0.5`, `27` | Внешний вид тени |
+| `Image`, `ImageEnabled`, `ImageColor`, `ImageTransparency` | `""`, `true`, white, `0.85` | Настройки фонового изображения |
+| `NeonType`, `NeonThickness` | `"Stroke"`, `1` | Стиль и толщина neon |
+| `OutsideStroke`, `NoStrokes` | `true`, `false` | Управление обводкой |
+| `CornerRadius`, `RoundEverything` | `0`, `false` | Скругление углов |
+| `ModernToggles`, `LargeModernToggles` | `false`, `false` | Вид toggle |
+| `NotificationSide`, `NotificationOgScaling` | `"Right"`, `false` | Расположение уведомлений |
+| `MobileButtonVisible`, `MobileButtonAlwaysVisible` | `false`, `false` | Плавающая кнопка переключения |
+| `MobileButtonNeon` | `true` | Neon-акцент плавающей кнопки |
+| `UnlockMouse` | `false` | Разблокировать мышь при активном окне |
+| `Volume` | `100` | Громкость звуков UI, внутри делится на 200 |
+| `NotificationSound`, `ClickSound`, `HoverSound` | bundled assets | ID звуков UI |
+| `OnClose` | function | Callback, запланированный при закрытии |
+
+## Методы
+
+| Область | Методы |
+| --- | --- |
+| Раскладка | [`AddTab`, `AddCustomTab`, `AddHeader`, `AddSeparator`, `SetTab`](/ru/guides/windows) |
+| Видимость | [`Show`, `Hide`, `Toggle`, `TryClose`, `Close`](/ru/guides/windows) |
+| Стилизация | `Refresh`, `RefreshAll`, [методы тем и конфигов](/ru/guides/themes-configs) |
+| Сообщения | [`Notification`, `WindowNotification`, `FloatingLabel`](/ru/guides/notifications) |
+| Доступ | [`KeySystem`](/ru/reference/key-system) |
+
+`Size` существует, но не завершен.

@@ -1,9 +1,10 @@
 ---
 title: "Window options"
 description: "Reference for common window settings and methods."
+icon: "gear"
 ---
 
-Pass an options table to `Fire:Window(options)`. These defaults are from version 5.2.6.
+Options for `Fire:Window(options)`. Defaults from v5.2.6.
 
 | Option | Default | Description |
 | --- | --- | --- |
@@ -36,6 +37,14 @@ Pass an options table to `Fire:Window(options)`. These defaults are from version
 | `NotificationSound`, `ClickSound`, `HoverSound` | bundled assets | UI sound IDs |
 | `OnClose` | function | Callback scheduled during closure |
 
-Methods include `AddTab`, `AddCustomTab`, `AddHeader`, `AddSeparator`, `SetTab`, `Show`, `Hide`, `Toggle`, `TryClose`, `Close`, `Refresh`, `RefreshAll`, `Notification`, `WindowNotification`, `FloatingLabel`, `KeySystem`, and config/theme methods. See the feature pages for arguments and behavior.
+## Methods
 
-The source includes additional internal options and fields. `Size` exists, but the author notes that its implementation is incomplete. Verify unsupported or advanced options in the exact source revision you use.
+| Area | Methods |
+| --- | --- |
+| Layout | [`AddTab`, `AddCustomTab`, `AddHeader`, `AddSeparator`, `SetTab`](/guides/windows) |
+| Visibility | [`Show`, `Hide`, `Toggle`, `TryClose`, `Close`](/guides/windows#navigation-and-visibility) |
+| Styling | `Refresh`, `RefreshAll`, [theme and config methods](/guides/themes-configs) |
+| Messages | [`Notification`, `WindowNotification`, `FloatingLabel`](/guides/notifications) |
+| Access | [`KeySystem`](/reference/key-system) |
+
+`Size` exists but is unfinished.

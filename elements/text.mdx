@@ -1,7 +1,11 @@
 ---
 title: "Labels, headers and separators"
 description: "Add text and organize a page."
+sidebarTitle: "Labels and separators"
+icon: "text"
 ---
+
+Static text and layout helpers.
 
 ```lua
 local label = box:AddLabel({ Text = "Status: idle" })
@@ -11,4 +15,8 @@ box:AddSeparator()
 box:AddSeparator({ Invisible = true })
 ```
 
-Labels display text and can contain supported rich text. Headers add a section title inside a tab or groupbox; `window:AddHeader` adds one in the navigation. A separator with `Invisible = true` leaves a gap without the line. `Visible` and `Order` control display and positioning.
+- **Label:** supports rich text. Update with `label.Text = "..."`.
+- **Header:** section title in a tab or groupbox. `window:AddHeader` adds one to the tab list.
+- **Separator:** a divider line. `Invisible = true` leaves a gap only.
+
+All support `Visible` and `Order`.

@@ -1,0 +1,27 @@
+---
+title: "Text box"
+description: "Считывает текст, введенный пользователем."
+icon: "keyboard"
+---
+
+Текстовый ввод. Callback запускается при потере фокуса по умолчанию.
+
+```lua
+local input = box:AddTextBox("Message", {
+    Text = "Message",
+    PlaceholderText = "Type here",
+    Value = "",
+    Callback = function(text) print(text) end,
+})
+input:Set("hello")
+```
+
+| Опция | Назначение |
+| --- | --- |
+| `Instant` | Запускать при каждом изменении |
+| `RequiresEnter` | Запускать только при Enter. Игнорируется с `MultiLine`. |
+| `MultiLine` | Многострочный ввод |
+| `ValueUsesPlaceholder` | Передавать placeholder, когда поле пустое |
+| `Disabled`, `NoConfigs` | Блокировать редактирование, исключить из configs |
+
+`:Set(text)` вызывает callback при изменении.

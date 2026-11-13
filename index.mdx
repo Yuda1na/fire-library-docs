@@ -1,26 +1,12 @@
 ---
 title: "Fire Library"
 description: "Build flexible Roblox interfaces with Fire Library."
+icon: "house"
 ---
 
-Create windows, controls and themes with a compact Luau API. Start with a window, add a tab, then fill it with controls.
+![Fire Library](/images/fire-hero.svg)
 
-![Fire Library documentation artwork](/images/fire-hero.svg)
-
-<CardGroup cols={2}>
-  <Card title="Get started" icon="bolt" href="/getting-started/quickstart">
-    Create your first window and add a few controls.
-  </Card>
-  <Card title="Controls" icon="sliders" href="/guides/controls">
-    Find an example for each control and learn what its options do.
-  </Card>
-  <Card title="Themes and configs" icon="palette" href="/guides/themes-configs">
-    Customize the interface and save control state.
-  </Card>
-  <Card title="API notes" icon="book-open" href="/reference/compatibility">
-    Check runtime requirements and version-specific behavior.
-  </Card>
-</CardGroup>
+Windows, controls and themes with a compact Luau API. Create a window, add a tab, fill it with controls.
 
 ```lua
 local window = Fire:Window({
@@ -40,6 +26,24 @@ controls:AddToggle("Enabled", {
 })
 ```
 
+<CardGroup cols={2}>
+  <Card title="Installation" icon="download" href="/getting-started/installation">
+    Load the library in your executor.
+  </Card>
+
+  <Card title="Quickstart" icon="bolt" href="/getting-started/quickstart">
+    Your first window in under a minute.
+  </Card>
+
+  <Card title="Elements" icon="shapes" href="/guides/controls">
+    Buttons, toggles, sliders, text boxes and more.
+  </Card>
+
+  <Card title="Themes and configs" icon="palette" href="/guides/themes-configs">
+    Restyle the UI and save control state.
+  </Card>
+</CardGroup>
+
 <Note>
-This community documentation is based on source version 5.2.6 at commit `2f57dd6de90b6d92525f6c8c3e4024f8d94e0dc2`. Examples and behavior have been reviewed against source but have not yet been tested across runtimes.
+Unofficial community docs for Fire Library v5.2.6.
 </Note>

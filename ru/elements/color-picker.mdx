@@ -1,0 +1,22 @@
+---
+title: "Color picker"
+description: "Прикрепляет селектор цвета к control."
+icon: "eye-dropper"
+---
+
+Прикрепляется к button, toggle, label или keybind.
+
+```lua
+local label = box:AddLabel({ Text = "Accent" })
+local picker = label:AddColorPicker({
+    Value = Color3.fromRGB(255, 90, 130),
+    Tooltip = "Accent color",
+    Callback = function(color)
+        window.Options.Theme.Main = color
+        window:Refresh()
+    end,
+})
+picker:Set(Color3.fromRGB(100, 160, 255))
+```
+
+Опции: `Value`, `Callback`, `Tooltip`, `Visible`, `Disabled`, `Order`. Callback получает `Color3` и сам picker. `:Set(color)` вызывает его при изменении.

@@ -1,7 +1,10 @@
 ---
 title: "Slider"
 description: "Choose a number within a range."
+icon: "sliders"
 ---
+
+Picks a number between `Min` and `Max`.
 
 ```lua
 local amount = box:AddSlider("Amount", {
@@ -13,8 +16,23 @@ local amount = box:AddSlider("Amount", {
 amount:Set(75)
 ```
 
-`Step` controls increments; `0` allows continuous selection. `Minimum` and `Maximum` are aliases for `Min` and `Max`. Set `AllowSetValue` to allow right-click or double-click entry; `BypassSetValue` allows entered values to bypass range and step checks. `Styled`, `Compact`, and `ShowCompactValue` change presentation.
+| Option | Purpose |
+| --- | --- |
+| `Min`, `Max` | Range. Aliases: `Minimum`, `Maximum`. Must differ. |
+| `Step` | Increment. `0` is continuous. |
+| `Format` | Display format string or function (see below) |
+| `AllowSetValue` | Right-click or double-click to type a value |
+| `BypassSetValue` | Typed values skip range and step checks |
+| `Styled`, `Compact`, `ShowCompactValue` | Presentation |
 
-Available format strings include `.`, `%`, `.%`, `.1%`, `.2%`, `/`, `//`, `/%`, `a`, `+`, `$`, `e`, `x`, and `,`. A function is also accepted and receives the slider.
+## Formats
 
-`slider:Set(value)` does not clamp the value in the inspected revision. Validate values from text boxes or other external sources yourself, and use distinct `Min` and `Max` values.
+`.` `%` `.%` `.1%` `.2%` `/` `//` `/%` `a` `+` `$` `e` `x` `,`
+
+- `.%` treats `1` as 100%. `%` shows the raw value with a percent sign.
+- Some formats divide by `Max` or `Max - Min`.
+- A function receives the slider and returns the display text.
+
+<Warning>
+  `:Set(value)` does not clamp. Validate external input yourself.
+</Warning>

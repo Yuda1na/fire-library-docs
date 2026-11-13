@@ -1,19 +1,44 @@
 ---
 title: "Themes and configs"
 description: "Change colors and save or restore settings."
+icon: "palette"
 ---
 
-The library has built-in settings pages for theme, config, and other options. A live theme has `Main`, `Back`, `Stroke`, and `Text` colors:
+The window ships with built-in Theme and Config settings pages. You can also drive them from code.
+
+## Themes
+
+A theme has four colors: `Main`, `Back`, `Stroke`, `Text`.
 
 ```lua
 window.Options.Theme.Main = Color3.fromRGB(255, 90, 80)
 window:Refresh()
+```
+
+### Premade themes
+
+On first run the library writes these to `FireLibrary/Themes/`: Default, Ambience, Royalty, Emo, Emo 2, Anime, Anime 2 (My Favorite), (Light) Kawaii, Galaxy, Ketamine UI, Vampires, Menthol, Privacy. Restore them anytime from **Theme Settings → Restore Default Themes**. Without file functions they're still selectable from the Premade Themes dropdown.
+
+## Share strings
+
+```lua
 local configString = window:GetConfigString()
 local decoded, applied = window:SetConfigString(configString)
+
 local themeString = window:GetThemeString()
 local themeDecoded, themeApplied = window:SetThemeString(themeString)
 ```
 
-`GetConfig()` and `GetTheme()` expose serialized tables; `SetConfig()` and `SetTheme()` apply those formats. Their return behavior differs: use the two boolean results from the share-string setters to distinguish decoding from application. Applying a config can invoke control callbacks. A successful decode does not guarantee every individual control applied as intended.
+The two booleans tell decoding apart from applying. `GetConfig` / `SetConfig` and `GetTheme` / `SetTheme` work with raw tables instead. Applying a config fires control callbacks.
 
-File-backed settings require **all** of `writefile`, `readfile`, `delfile` or `deletefile`, `makefolder`, `listfiles`, `isfolder`, and `isfile`. The source uses `FireLibrary/Configs/`, `Themes/` and `Cache/`, and `.shrimp` files. Share-string APIs are separate from disk storage; they rely on Roblox encoding/compression services being available. Config/theme names in the built-in UI must be 1–32 characters and cannot contain `/` or `\`.
+## Saving to disk
+
+Requires **all** of `writefile`, `readfile`, `delfile` (or `deletefile`), `makefolder`, `listfiles`, `isfolder`, `isfile`.
+
+| Path | Contents |
+| --- | --- |
+| `FireLibrary/Configs/` | Saved configs (`.shrimp`) |
+| `FireLibrary/Themes/` | Saved themes (`.shrimp`) |
+| `FireLibrary/Cache/` | Downloaded assets |
+
+Names must be 1 to 32 characters, without `/` or `\`. Share strings don't need file APIs.

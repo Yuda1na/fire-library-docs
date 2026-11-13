@@ -1,7 +1,10 @@
 ---
 title: "Key system"
 description: "Display a client-side key prompt."
+icon: "key"
 ---
+
+Shows a key prompt and yields until the key is accepted or the window closes.
 
 ```lua
 local accepted = window:KeySystem({
@@ -14,6 +17,12 @@ local accepted = window:KeySystem({
 if not accepted then return end
 ```
 
-`KeyUrl` is a required string and `Callback` is a required function. The prompt waits until the callback accepts a key or the window closes. Optional `Background` or `BackgroundImage` fields are accepted by the implementation, although background rendering should be tested against the version you use.
+| Option | Required | Purpose |
+| --- | --- | --- |
+| `KeyUrl` | Yes | Link shown to get a key |
+| `Callback` | Yes | Returns `true` to accept the key |
+| `Background`, `BackgroundImage` | No | Prompt background |
 
-The callback runs on the client. It does not provide server-side authorization or protect a secret embedded in a client script.
+<Warning>
+  Validation runs on the client. Anything checked in the callback can be bypassed.
+</Warning>

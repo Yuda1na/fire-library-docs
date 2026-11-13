@@ -1,10 +1,13 @@
 ---
 title: "Notifications and labels"
 description: "Show messages, prompts and floating labels."
+icon: "bell"
 ---
 
+Toasts, confirmation dialogs and floating status labels.
+
 ```lua
-window:Notification({ Title = "Ready", Text = "loaded", Duration = 4, Side = "Right" })
+window:Notification({ Title = "Ready", Text = "Loaded", Duration = 4, Side = "Right" })
 local yes = window:WindowNotification({ Title = "Confirm", Text = "Continue?", HasButtons = true })
 
 local label = window:FloatingLabel("Status", { Title = "Status", Text = "ready" })
@@ -12,6 +15,15 @@ label.Text = "running"
 label:Destroy()
 ```
 
-`Notify` aliases `Notification`. A notification without `HasButtons` runs asynchronously and has its duration clamped to 2–120 seconds. With `HasButtons = true`, it waits for a response or timeout and returns a boolean. `HasButton` shows one button, but the normal call still runs asynchronously. `WindowNotification`/`InWindowNotification` waits and returns a choice when `HasButtons` is true. `SmartNotification` chooses the in-window or toast path based on visibility.
+| Method | Behavior |
+| --- | --- |
+| `Notification` / `Notify` | Toast. Async; `Duration` clamped to 2 to 120 s. With `HasButtons = true` it yields and returns a boolean. |
+| `WindowNotification` / `InWindowNotification` | Dialog inside the window. Yields and returns the choice with `HasButtons = true`. |
+| `SmartNotification` | Picks in-window or toast depending on window visibility |
+| `FloatingLabel(flag, options)` | Draggable label. Update `.Text`, remove with `:Destroy()`. |
 
-`NeverShowAgainFlag` is supported by in-window notifications. In this revision, selecting that option stores `false`, regardless of the chosen dialog button; verify the behavior you want before using it.
+`HasButton` (singular) shows one button but doesn't yield.
+
+<Warning>
+  `NeverShowAgainFlag` stores `false` no matter which button is pressed.
+</Warning>

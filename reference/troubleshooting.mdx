@@ -1,24 +1,28 @@
 ---
 title: "Troubleshooting"
-description: "Find common loading and interface issues."
+description: "Fix common loading and interface issues."
+icon: "wrench"
 ---
 
-## The loader reports `Invalid request return`
+## `Invalid request return`
 
-The inspected repository loader constructs invalid GitHub URLs. Check the exact `Loader.lua` revision you are using and its HTTP response before troubleshooting the UI. The loader needs a code fix; this documentation does not change it.
+The official `Loader.lua` builds broken GitHub URLs. Use the direct loader in [Installation](/getting-started/installation).
 
-## The window does not appear
+## The window doesn't appear
 
-Check the earliest console error, confirm the library loaded in a client context, and test the configured window keybind. `Fire:Window()` waits for its built-in settings initialization, so a failure there may prevent it from returning. The generated UI's parenting and runtime support need to be tested in the target environment.
+- Check the first error in the console.
+- Make sure the script runs on the client.
+- Press the window keybind (default `LeftAlt`).
+- `Fire:Window()` yields on settings init; if that errors, nothing returns.
 
-## A dropdown shows the wrong choices
+## Dropdown shows the wrong choices
 
-Use `Values` for the option list in version 5.2.6. See [Dropdowns](/guides/dropdowns) for how converted and raw selections work.
+Use `Values`, not `Options`. See [Dropdown](/guides/dropdowns).
 
-## Configs do not save
+## Configs don't save
 
-The built-in file manager requires all of the filesystem functions listed in [Themes and configs](/guides/themes-configs). Share strings and file-backed storage are separate features. Applying a saved config may invoke callbacks.
+Your executor is missing a file function. See the list in [Themes and configs](/guides/themes-configs#saving-to-disk).
 
-## `type(Fire)` is not `table`
+## `type(Fire)` isn't `table`
 
-The inspected version returns userdata proxies. Access the documented methods on the returned object; do not reject it solely because `type(Fire)` is not `table`.
+Expected. The library returns userdata proxies. See [Objects and flags](/getting-started/objects#proxies).

@@ -1,0 +1,29 @@
+---
+title: "Уведомления и метки"
+description: "Показывайте сообщения, диалоги подтверждения и плавающие метки."
+icon: "bell"
+---
+
+Toast, диалоги подтверждения и плавающие статусные метки.
+
+```lua
+window:Notification({ Title = "Ready", Text = "Loaded", Duration = 4, Side = "Right" })
+local yes = window:WindowNotification({ Title = "Confirm", Text = "Continue?", HasButtons = true })
+
+local label = window:FloatingLabel("Status", { Title = "Status", Text = "ready" })
+label.Text = "running"
+label:Destroy()
+```
+
+| Метод | Поведение |
+| --- | --- |
+| `Notification` / `Notify` | Toast. Асинхронный; `Duration` ограничен от 2 до 120 с. При `HasButtons = true` ждет ответа и возвращает boolean. |
+| `WindowNotification` / `InWindowNotification` | Диалог внутри окна. При `HasButtons = true` ждет ответа и возвращает выбор. |
+| `SmartNotification` | Выбирает toast или диалог в окне в зависимости от видимости окна |
+| `FloatingLabel(flag, options)` | Перетаскиваемая метка. Обновляйте `.Text`, удаляйте через `:Destroy()`. |
+
+`HasButton` (единственное число) показывает одну кнопку, но не ждет ответа.
+
+<Warning>
+  `NeverShowAgainFlag` сохраняет `false` независимо от того, какая кнопка нажата.
+</Warning>

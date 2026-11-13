@@ -1,0 +1,42 @@
+---
+title: "Установка"
+description: "Загрузка Fire Library в executor."
+icon: "download"
+---
+
+Fire Library создана для скриптов под executor: мод-меню, админ-панели, утилиты.
+
+## Загрузка
+
+Официальный `Loader.lua` собирает нерабочие GitHub URL и падает с ошибкой `Invalid request return`. Загружайте исходник напрямую:
+
+```lua
+local url = "https://raw.githubusercontent.com/Its-Kawi/Fire-Library/2f57dd6de90b6d92525f6c8c3e4024f8d94e0dc2/Files/Library.lua"
+local src = game:HttpGet(url)
+local stop = src:find(";", src:find("local", 1, true), true)
+
+local Fire = loadstring(
+    "local parent = nil" .. src:sub(stop + 1)
+    .. "\nreturn require(obj:FindFirstChildOfClass(\"ModuleScript\"))"
+)()
+```
+
+Требуются `game:HttpGet` и `loadstring`. Для сохранения конфигов и тем также нужны файловые функции из раздела [Темы и конфиги](/ru/guides/themes-configs).
+
+<Accordion title="Встраивание в собственную игру">
+  Это не основной сценарий, но upstream его поддерживает:
+
+  1. Скопируйте `Files/Library.lua` в ModuleScript.
+  2. Добавьте эту строку в самый конец:
+     ```lua
+     return require(obj:FindFirstChildOfClass("ModuleScript"))
+     ```
+  3. Подключите через `require` из LocalScript:
+     ```lua
+     local Fire = require(path.to.FireLibrary)
+     ```
+
+  Без файловых функций страницы Config и Theme работают только со строками для обмена.
+</Accordion>
+
+Далее: [Быстрый старт](/ru/getting-started/quickstart).

@@ -1,0 +1,40 @@
+---
+title: "Окна и раскладка"
+description: "Организуйте интерфейс с помощью вкладок и groupbox."
+icon: "window-maximize"
+---
+
+Окно содержит вкладки, вкладки содержат элементы управления или groupbox. Полный список опций: [Опции окна](/ru/reference/window-options).
+
+```lua
+local window = Fire:Window({ Text = "My Interface", Keybind = Enum.KeyCode.RightShift })
+
+window:AddHeader({ Text = "General" })
+local main = window:AddTab("Main", { Text = "Main", Icon = "Home" })
+window:AddSeparator()
+
+local left = main:AddLeftGroupbox("Left", { Text = "Left" })
+local right = main:AddRightGroupbox("Right", { Text = "Right" })
+```
+
+## Список вкладок
+
+`AddTab`, `AddCustomTab`, `AddHeader`, `AddSeparator`.
+
+## Groupbox
+
+`AddGroupbox`, `AddLeftGroupbox`, `AddRightGroupbox`. Вкладки также принимают элементы управления напрямую.
+
+## Навигация и видимость
+
+| Метод | Эффект |
+| --- | --- |
+| `tab:SwitchTo()` | Выбрать вкладку |
+| `window:SetTab(flag)`, `SetTab(tab)`, `SetTab(nil)` | Выбрать или сбросить вкладку |
+| `Show()`, `Hide()`, `Toggle()` | Видимость |
+| `TryClose()` | Закрыть с подтверждением |
+| `Close()` | Закрыть немедленно |
+
+<Warning>
+  `Close()` сбрасывает каждый элемент управления к значению по умолчанию через `:Set`, поэтому callback срабатывают. Callback, запускающие работу, должны также обрабатывать завершение. Закрытие не выгружает глобальные циклы или глобальные переменные библиотеки.
+</Warning>

@@ -1,31 +1,57 @@
 ---
-title: "Controls"
-description: "Use buttons, toggles, sliders, labels and text boxes."
+title: "Elements overview"
+sidebarTitle: "Overview"
+description: "Every control you can add to a tab or groupbox."
+icon: "grid-2"
 ---
 
-```lua
-box:AddButton({ Text = "Refresh", Callback = function(button)
-    print("clicked", button)
-end })
+Add elements to a tab or groupbox. Pass a flag first to save the value in configs.
 
-local toggle = box:AddToggle("Enabled", {
-    Text = "Enabled", Value = false,
-    Callback = function(value, control) print(value) end,
-})
-toggle:Set(true)
+<CardGroup cols={2}>
+  <Card title="Button" icon="hand-pointer" href="/elements/button">
+    `AddButton`
+  </Card>
 
-box:AddCheckBox("Hints", { Text = "Hints", Value = false })
-box:AddSlider("Amount", {
-    Text = "Amount", Min = 0, Max = 100, Step = 5, Value = 50,
-    Format = "/", Callback = function(value, control) print(value) end,
-})
-```
+  <Card title="Toggle and checkbox" icon="toggle-on" href="/elements/toggle">
+    `AddToggle`, `AddCheckBox`
+  </Card>
 
-Common options include `Text`, `Visible`, `Disabled`, `Tooltip`, `DisabledTooltip`, `Order` and `Translations`; the exact options depend on the control. `Default` overrides `Value` during object creation. `NoConfigs` excludes supported values from config serialization, with exceptions for attached keybinds.
+  <Card title="Slider" icon="sliders" href="/elements/slider">
+    `AddSlider`
+  </Card>
 
-- **Button:** normal callback receives the control. `Holdable = true` changes it to a press/release callback receiving a boolean and control. Buttons, toggles, labels and inputs support attached color pickers via `:AddColorPicker({ Value = Color3.new(...), Callback = function(color, picker) end })`.
-- **Toggle:** `:Set(value)` fires change/callback when its value changes. `:Toggle(value, noCallback)` accepts an optional value and callback suppression flag.
-- **Slider:** `Min`, `Max`, `Step`, `Value`, `Styled`, `Compact`, `ShowCompactValue`, `AllowSetValue`, and `BypassSetValue` are supported. `Minimum` and `Maximum` are aliases. `:Set` sets the supplied value; its implementation does not clamp it, so validate external values yourself. Keep `Max` and `Min` different.
-- **Slider formats:** `.`, `%`, `.%`, `.1%`, `.2%`, `/`, `//`, `/%`, `a`, `+`, `$`, `e`, `x` and `,`, or a formatter function receiving the slider. `.%` interprets 1 as 100%; `%` displays the raw value rounded with a percent sign. Some formats divide by `Max` or `Max - Min`.
-- **Label:** assign `label.Text = "new text"`. Labels support rich text in their displayed text.
-- **TextBox:** `Instant = true` calls on text changes; otherwise the callback runs on focus loss. `RequiresEnter = true` requires Enter, except when `MultiLine = true`. `ValueUsesPlaceholder` changes the value passed to the callback for an empty input. `:Set(text)` invokes its callback on a change.
+  <Card title="Dropdown" icon="list" href="/guides/dropdowns">
+    `AddDropdown`
+  </Card>
+
+  <Card title="Text box" icon="keyboard" href="/elements/textbox">
+    `AddTextBox`
+  </Card>
+
+  <Card title="Keybind" icon="command" href="/guides/keybinds">
+    `AddKeybind`, `AddInput`
+  </Card>
+
+  <Card title="Color picker" icon="eye-dropper" href="/elements/color-picker">
+    `:AddColorPicker`
+  </Card>
+
+  <Card title="Labels and separators" icon="text" href="/elements/text">
+    `AddLabel`, `AddHeader`, `AddSeparator`
+  </Card>
+</CardGroup>
+
+## Common options
+
+| Option | Purpose |
+| --- | --- |
+| `Text` | Label |
+| `Value` | Starting value. `Default` overrides it on creation. |
+| `Callback` | Runs on change or click |
+| `Visible`, `Disabled` | Visibility and interaction |
+| `Tooltip`, `DisabledTooltip` | Hover text |
+| `Order` | Position in the parent |
+| `Translations` | Per-language text. See [Localization](/guides/localization-icons). |
+| `NoConfigs` | Exclude from saved configs (attached keybinds still save) |
+
+Every control also has `New...` and short-name aliases.

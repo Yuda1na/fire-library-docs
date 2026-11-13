@@ -1,0 +1,57 @@
+---
+title: "Обзор элементов"
+sidebarTitle: "Обзор"
+description: "Все элементы управления, которые можно добавить во вкладку или groupbox."
+icon: "grid-2"
+---
+
+Добавляйте элементы во вкладку или groupbox. Первым аргументом передавайте flag для сохранения значения в конфигах.
+
+<CardGroup cols={2}>
+  <Card title="Button" icon="hand-pointer" href="/ru/elements/button">
+    `AddButton`
+  </Card>
+
+  <Card title="Toggle и checkbox" icon="toggle-on" href="/ru/elements/toggle">
+    `AddToggle`, `AddCheckBox`
+  </Card>
+
+  <Card title="Slider" icon="sliders" href="/ru/elements/slider">
+    `AddSlider`
+  </Card>
+
+  <Card title="Dropdown" icon="list" href="/ru/guides/dropdowns">
+    `AddDropdown`
+  </Card>
+
+  <Card title="Text box" icon="keyboard" href="/ru/elements/textbox">
+    `AddTextBox`
+  </Card>
+
+  <Card title="Keybind" icon="command" href="/ru/guides/keybinds">
+    `AddKeybind`, `AddInput`
+  </Card>
+
+  <Card title="Color picker" icon="eye-dropper" href="/ru/elements/color-picker">
+    `:AddColorPicker`
+  </Card>
+
+  <Card title="Метки и разделители" icon="text" href="/ru/elements/text">
+    `AddLabel`, `AddHeader`, `AddSeparator`
+  </Card>
+</CardGroup>
+
+## Общие опции
+
+| Опция | Назначение |
+| --- | --- |
+| `Text` | Метка |
+| `Value` | Начальное значение. `Default` переопределяет его при создании. |
+| `Callback` | Срабатывает при изменении или клике |
+| `Visible`, `Disabled` | Видимость и взаимодействие |
+| `Tooltip`, `DisabledTooltip` | Текст при наведении |
+| `Order` | Позиция в родителе |
+| `Translations` | Текст на разных языках. См. [Локализация](/ru/guides/localization-icons). |
+| `NoConfigs` | Исключить из сохраняемых конфигов (привязанные keybind все равно сохраняются) |
+
+У каждого элемента управления также есть `New...` и короткие алиасы.

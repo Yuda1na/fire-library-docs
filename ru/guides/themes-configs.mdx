@@ -1,0 +1,44 @@
+---
+title: "Темы и конфиги"
+description: "Меняйте цвета и сохраняйте или восстанавливайте настройки."
+icon: "palette"
+---
+
+Окно поставляется со встроенными страницами настроек Theme и Config. Вы также можете управлять ими из кода.
+
+## Темы
+
+Тема состоит из четырех цветов: `Main`, `Back`, `Stroke`, `Text`.
+
+```lua
+window.Options.Theme.Main = Color3.fromRGB(255, 90, 80)
+window:Refresh()
+```
+
+### Готовые темы
+
+При первом запуске библиотека записывает их в `FireLibrary/Themes/`: Default, Ambience, Royalty, Emo, Emo 2, Anime, Anime 2 (My Favorite), (Light) Kawaii, Galaxy, Ketamine UI, Vampires, Menthol, Privacy. Восстановить их можно в **Theme Settings → Restore Default Themes**. Без файловых функций они доступны в выпадающем списке Premade Themes.
+
+## Share-строки
+
+```lua
+local configString = window:GetConfigString()
+local decoded, applied = window:SetConfigString(configString)
+
+local themeString = window:GetThemeString()
+local themeDecoded, themeApplied = window:SetThemeString(themeString)
+```
+
+Два boolean отделяют декодирование от применения. `GetConfig` / `SetConfig` и `GetTheme` / `SetTheme` работают с raw-таблицами. Применение конфига вызывает callback элементов управления.
+
+## Сохранение на диск
+
+Требуются **все** функции: `writefile`, `readfile`, `delfile` (или `deletefile`), `makefolder`, `listfiles`, `isfolder`, `isfile`.
+
+| Путь | Содержимое |
+| --- | --- |
+| `FireLibrary/Configs/` | Сохраненные конфиги (`.shrimp`) |
+| `FireLibrary/Themes/` | Сохраненные темы (`.shrimp`) |
+| `FireLibrary/Cache/` | Загруженные ассеты |
+
+Имена должны быть от 1 до 32 символов, без `/` или `\`. Share-строки не требуют файловых API.

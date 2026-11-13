@@ -1,9 +1,12 @@
 ---
-title: "Dropdowns"
-description: "Work with single and multi-select lists."
+title: "Dropdown"
+description: "Single and multi-select lists."
+icon: "list"
 ---
 
-Use **`Values`**, not `Options`, for the choice list in this revision. The library's bundled example uses `Options`, but the dropdown implementation reads `Values` and the deprecated alias `Variants`.
+<Warning>
+  Use `Values`, not `Options`. The library's bundled example is wrong; the implementation reads `Values` (or the deprecated `Variants`).
+</Warning>
 
 ```lua
 local mode = box:AddDropdown("Mode", {
@@ -18,4 +21,11 @@ mode:Set(3)
 mode.Values = { "Slow", "Fast" }
 ```
 
-With `Convert = true` (default), a single-select callback receives the selected value first and index second. A multi-select callback receives a map from each available value to a boolean, followed by the selected index list. With `Convert = false`, the order is reversed. `Value` internally stores an index, index list or `false`; `AllowUnselect` applies to single selection. Test duplicates and programmatic changes carefully.
+## Callback arguments
+
+| Mode | `Convert = true` (default) | `Convert = false` |
+| --- | --- | --- |
+| Single | `value, index, control` | `index, value, control` |
+| Multi | `{ [value] = bool }, indexList, control` | `indexList, { [value] = bool }, control` |
+
+`Value` stores an index, an index list, or `false`. `AllowUnselect` lets single-select clear the choice. Avoid duplicate entries in `Values`.

@@ -1,9 +1,10 @@
 ---
 title: "Quickstart"
 description: "Create a window, organize controls and respond to input."
+icon: "bolt"
 ---
 
-First follow [installation](/getting-started/installation) and assign the returned library to a variable named `Fire`. Then create a window and a tab:
+After [installation](/getting-started/installation), with the library in `Fire`:
 
 ```lua
 local window = Fire:Window({
@@ -28,13 +29,15 @@ general:AddSlider("Volume", {
 })
 ```
 
-Press Right Shift to toggle the window. Add a [dropdown](/guides/dropdowns), [keybind](/guides/keybinds), or [floating label](/guides/notifications) next.
+Press Right Shift to toggle the window.
 
-## How the pieces fit together
+## Structure
 
-- `Fire` is the library object returned by your loader or ModuleScript.
-- A `window` holds tabs and global settings.
-- A `tab` holds controls, or groupboxes that arrange controls in columns.
-- A callback is a function that runs when someone interacts with a control.
+| Object | Holds |
+| --- | --- |
+| `Fire` | The library. Creates windows. |
+| `window` | Tabs and global settings. |
+| `tab` | Controls, or groupboxes that arrange them in columns. |
+| groupbox | Controls. |
 
-Keep a reference such as `local amount = ...` if you want to change that control later. See [Objects and flags](/getting-started/objects) for updating values and saving settings.
+Keep a reference (`local amount = box:AddSlider(...)`) to update a control later. See [Objects and flags](/getting-started/objects).

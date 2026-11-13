@@ -1,0 +1,25 @@
+---
+title: "Keybind"
+description: "Добавляет селектор клавиши и обрабатывает нажатия."
+icon: "command"
+---
+
+`AddKeybind` и `AddInput` являются алиасами. Только для desktop: скрывается на mobile.
+
+```lua
+box:AddInput("ActionKey", {
+    Text = "Action key", Value = Enum.KeyCode.K,
+    KeySet = function(key) print("key:", key) end,
+    Callback = function(control) print("pressed") end,
+})
+```
+
+| Опция | Назначение |
+| --- | --- |
+| `Value` | Начальный `Enum.KeyCode` |
+| `KeySet` | Запускается, когда пользователь выбирает клавишу. Получает `Enum.KeyCode` или `nil`. |
+| `Callback` | Запускается при нажатии привязанной клавиши |
+
+Значения хранятся как числовые key codes или `false`.
+
+К button и toggle также можно прикрепить keybind, используемый встроенным режимом редактирования keybind. Он ведет себя иначе, чем standalone keybind.

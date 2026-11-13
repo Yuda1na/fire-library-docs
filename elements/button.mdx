@@ -1,15 +1,16 @@
 ---
 title: "Button"
 description: "Run an action when a button is clicked."
+icon: "hand-pointer"
 ---
 
-Add a button to a tab or groupbox. `Callback` is the function called when the button is clicked.
+Runs `Callback` on click.
 
 ```lua
 local button = box:AddButton("Refresh", {
     Text = "Refresh",
     Icon = "Repeat",
-    Tooltip = "refresh the list",
+    Tooltip = "Refresh the list",
     Callback = function(button)
         print("clicked")
     end,
@@ -21,12 +22,12 @@ button.Text = "Unavailable"
 
 | Option | Default | Purpose |
 | --- | --- | --- |
-| `Text` | `"Button"` | Button label |
-| `Callback` | function | Runs on activation |
+| `Text` | `"Button"` | Label |
+| `Callback` | function | Runs on click |
 | `Icon` | `"Cursor"` | Icon name or asset |
-| `Holdable` | `false` | Callback receives press and release states |
+| `Holdable` | `false` | Callback gets press and release |
 | `Disabled`, `Visible` | `false`, `true` | Interaction and visibility |
 | `Tooltip`, `DisabledTooltip` | `""` | Hover text |
-| `RecolorIcon` | `true` | Apply theme color to icon |
+| `RecolorIcon` | `true` | Tint icon with the theme |
 
-When `Holdable` is enabled, the callback receives `true` on press and `false` on release, followed by the control. Attach a color picker with `button:AddColorPicker(options)`.
+With `Holdable = true` the callback receives `true` on press, `false` on release, then the control. Attach a [color picker](/elements/color-picker) with `button:AddColorPicker(options)`.

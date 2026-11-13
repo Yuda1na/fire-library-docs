@@ -1,0 +1,43 @@
+---
+title: "Быстрый старт"
+description: "Создание окна, организация элементов и обработка ввода."
+icon: "bolt"
+---
+
+После [установки](/ru/getting-started/installation), с библиотекой в переменной `Fire`:
+
+```lua
+local window = Fire:Window({
+    Text = "My Interface",
+    Footer = "Settings",
+    Keybind = Enum.KeyCode.RightShift,
+})
+
+local main = window:AddTab("Main", { Text = "Main", Icon = "Home" })
+local general = main:AddLeftGroupbox("General", { Text = "General" })
+
+general:AddButton({
+    Text = "Test",
+    Callback = function()
+        window:Notification({ Title = "Ready", Text = "Button clicked", Duration = 4 })
+    end,
+})
+
+general:AddSlider("Volume", {
+    Text = "Volume", Min = 0, Max = 100, Step = 5, Value = 50,
+    Callback = function(value) print("Volume:", value) end,
+})
+```
+
+Нажмите Right Shift, чтобы переключать видимость окна.
+
+## Структура
+
+| Объект | Содержит |
+| --- | --- |
+| `Fire` | Библиотека. Создает окна. |
+| `window` | Вкладки и глобальные настройки. |
+| `tab` | Элементы управления, или groupbox, которые раскладывают их по колонкам. |
+| groupbox | Элементы управления. |
+
+Сохраняй ссылку (`local amount = box:AddSlider(...)`), чтобы потом обновлять элемент. См. [Объекты и флаги](/ru/getting-started/objects).
