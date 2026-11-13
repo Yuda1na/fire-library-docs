@@ -3,7 +3,7 @@ title: "Quickstart"
 description: "Create a window, organize controls and respond to input."
 ---
 
-After [loading Fire Library](/getting-started/installation), create a window and a tab:
+First follow [installation](/getting-started/installation) and assign the returned library to a variable named `Fire`. Then create a window and a tab:
 
 ```lua
 local window = Fire:Window({
@@ -29,3 +29,12 @@ general:AddSlider("Volume", {
 ```
 
 Press Right Shift to toggle the window. Add a [dropdown](/guides/dropdowns), [keybind](/guides/keybinds), or [floating label](/guides/notifications) next.
+
+## How the pieces fit together
+
+- `Fire` is the library object returned by your loader or ModuleScript.
+- A `window` holds tabs and global settings.
+- A `tab` holds controls, or groupboxes that arrange controls in columns.
+- A callback is a function that runs when someone interacts with a control.
+
+Keep a reference such as `local amount = ...` if you want to change that control later. See [Objects and flags](/getting-started/objects) for updating values and saving settings.

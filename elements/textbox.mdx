@@ -1,0 +1,18 @@
+---
+title: "Text box"
+description: "Read text typed by the user."
+---
+
+```lua
+local input = box:AddTextBox("Message", {
+    Text = "Message",
+    PlaceholderText = "type here",
+    Value = "",
+    Callback = function(text) print(text) end,
+})
+input:Set("hello")
+```
+
+By default the callback runs when the text box loses focus. Set `Instant = true` to call it as text changes, or `RequiresEnter = true` to require Enter. With `MultiLine = true`, `RequiresEnter` is ignored. `ValueUsesPlaceholder` substitutes the placeholder in the callback when the input is empty.
+
+Use `Disabled` to prevent editing and `NoConfigs` to exclude the value from saved configurations. `:Set(text)` calls the callback when its value changes.

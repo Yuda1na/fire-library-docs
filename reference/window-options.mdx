@@ -1,0 +1,41 @@
+---
+title: "Window options"
+description: "Reference for common window settings and methods."
+---
+
+Pass an options table to `Fire:Window(options)`. These defaults are from version 5.2.6.
+
+| Option | Default | Description |
+| --- | --- | --- |
+| `Text`, `Title` | `""`, library name | Window title; `Title` is the fallback |
+| `Footer` | `""` | Text under the window |
+| `Visible` | `true` | Starting visibility |
+| `Keybind` | `Enum.KeyCode.LeftAlt` | Desktop visibility key |
+| `Language` | `"EN"` | Language code, normalized to two uppercase letters |
+| `UserProfile` | `false` | Show player profile |
+| `SubscriptionExpiry` | `false` | Profile expiry text or timestamp |
+| `Theme` | pink, dark background | Table with `Main`, `Back`, `Stroke`, `Text` colors |
+| `ThemeString` | `""` | Theme share string to apply |
+| `AnimationSpeed` | `1` | Animation speed multiplier |
+| `ColorChangeSpeed` | `0.3` | Theme color transition speed |
+| `BlurBackground` | `false` | Background blur; runtime and quality dependent |
+| `EnableUIBlur` | `true` | Enable internal UI blur |
+| `FullBlurSize`, `BlurProfile` | `false`, `false` | Blur size and profile options |
+| `BackgroundTransparency` | `0` | Window background transparency |
+| `ShadowTransparency`, `ShadowSize` | `0.5`, `27` | Shadow appearance |
+| `Image`, `ImageEnabled`, `ImageColor`, `ImageTransparency` | `""`, `true`, white, `0.85` | Background image settings |
+| `NeonType`, `NeonThickness` | `"Stroke"`, `1` | Neon style and thickness |
+| `OutsideStroke`, `NoStrokes` | `true`, `false` | Outline controls |
+| `CornerRadius`, `RoundEverything` | `0`, `false` | Corner styles |
+| `ModernToggles`, `LargeModernToggles` | `false`, `false` | Toggle presentation |
+| `NotificationSide`, `NotificationOgScaling` | `"Right"`, `false` | Notification layout |
+| `MobileButtonVisible`, `MobileButtonAlwaysVisible` | `false`, `false` | Floating toggle button |
+| `MobileButtonNeon` | `true` | Floating button accent |
+| `UnlockMouse` | `false` | Unlock mouse when the window is active |
+| `Volume` | `100` | UI sound volume, internally divided by 200 |
+| `NotificationSound`, `ClickSound`, `HoverSound` | bundled assets | UI sound IDs |
+| `OnClose` | function | Callback scheduled during closure |
+
+Methods include `AddTab`, `AddCustomTab`, `AddHeader`, `AddSeparator`, `SetTab`, `Show`, `Hide`, `Toggle`, `TryClose`, `Close`, `Refresh`, `RefreshAll`, `Notification`, `WindowNotification`, `FloatingLabel`, `KeySystem`, and config/theme methods. See the feature pages for arguments and behavior.
+
+The source includes additional internal options and fields. `Size` exists, but the author notes that its implementation is incomplete. Verify unsupported or advanced options in the exact source revision you use.

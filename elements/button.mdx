@@ -1,0 +1,32 @@
+---
+title: "Button"
+description: "Run an action when a button is clicked."
+---
+
+Add a button to a tab or groupbox. `Callback` is the function called when the button is clicked.
+
+```lua
+local button = box:AddButton("Refresh", {
+    Text = "Refresh",
+    Icon = "Repeat",
+    Tooltip = "refresh the list",
+    Callback = function(button)
+        print("clicked")
+    end,
+})
+
+button.Disabled = true
+button.Text = "Unavailable"
+```
+
+| Option | Default | Purpose |
+| --- | --- | --- |
+| `Text` | `"Button"` | Button label |
+| `Callback` | function | Runs on activation |
+| `Icon` | `"Cursor"` | Icon name or asset |
+| `Holdable` | `false` | Callback receives press and release states |
+| `Disabled`, `Visible` | `false`, `true` | Interaction and visibility |
+| `Tooltip`, `DisabledTooltip` | `""` | Hover text |
+| `RecolorIcon` | `true` | Apply theme color to icon |
+
+When `Holdable` is enabled, the callback receives `true` on press and `false` on release, followed by the control. Attach a color picker with `button:AddColorPicker(options)`.

@@ -1,0 +1,19 @@
+---
+title: "Key system"
+description: "Display a client-side key prompt."
+---
+
+```lua
+local accepted = window:KeySystem({
+    KeyUrl = "https://example.com/key",
+    Callback = function(key)
+        return key == "example"
+    end,
+})
+
+if not accepted then return end
+```
+
+`KeyUrl` is a required string and `Callback` is a required function. The prompt waits until the callback accepts a key or the window closes. Optional `Background` or `BackgroundImage` fields are accepted by the implementation, although background rendering should be tested against the version you use.
+
+The callback runs on the client. It does not provide server-side authorization or protect a secret embedded in a client script.

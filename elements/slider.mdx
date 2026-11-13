@@ -1,0 +1,20 @@
+---
+title: "Slider"
+description: "Choose a number within a range."
+---
+
+```lua
+local amount = box:AddSlider("Amount", {
+    Text = "Amount",
+    Min = 0, Max = 100, Step = 5, Value = 50,
+    Format = "/",
+    Callback = function(value) print(value) end,
+})
+amount:Set(75)
+```
+
+`Step` controls increments; `0` allows continuous selection. `Minimum` and `Maximum` are aliases for `Min` and `Max`. Set `AllowSetValue` to allow right-click or double-click entry; `BypassSetValue` allows entered values to bypass range and step checks. `Styled`, `Compact`, and `ShowCompactValue` change presentation.
+
+Available format strings include `.`, `%`, `.%`, `.1%`, `.2%`, `/`, `//`, `/%`, `a`, `+`, `$`, `e`, `x`, and `,`. A function is also accepted and receives the slider.
+
+`slider:Set(value)` does not clamp the value in the inspected revision. Validate values from text boxes or other external sources yourself, and use distinct `Min` and `Max` values.
